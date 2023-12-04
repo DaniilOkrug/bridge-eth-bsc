@@ -137,10 +137,10 @@ contract Blog {
         require(!accessGranted[msg.sender][index], "Access alredy granted");
         
         Article storage article = articles[index];
-        require(msg.value == article.price, "Wrong transfer amount");
+        require(msg.value >= article.price, "Wrong transfer amount");
 
         if (article.ethPrice > 0) {
-            article.author.transfer(msg.value);
+            article.author.transfer(article.price);
         }
 
         accessGranted[msg.sender][index] = true;
